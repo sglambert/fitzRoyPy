@@ -15,38 +15,31 @@ analysis of data.
 * Docker (Optional)
 * Postgres (Optional)
 
-*The fitzRoy GitHub repository (above) gives instructions on how to install the API. 
-However, if you're not familiar with installing R packages I’ve found the simplest way to install the package 
+*The fitzRoy GitHub repository gives instructions on how to install the API. 
+However, if you're not familiar with installing R packages the simplest way to install the package 
 for use with Python is by firstly installing Rstudio and then installing fitzRoy through Rstudio. 
-There’s probably a better and much simpler way to install fitzRoy though! I've added this as a TODO (below).*
+There’s probably a better and much simpler way to install fitzRoy though!*
 
 ## Getting Started
 
 * Install Python packages in ```requirements.txt```
-* Create a .env file in the project root directory with the following parameters:
-
-  * DB_USER=<db_user>
-  
-  * DB_PASSWORD=<db_password>
-  
-  * DB=<db_name>
-  
-  * DB_PORTS=<some_port:some_port>
+* Create a ```.env``` file in the project root directory with the following parameters:
+```
+  DB_USER=<db_user>
+  DB_PASSWORD=<db_password>
+  DB=<db_name>
+  DB_PORTS=<some_port:some_port>
+```
 
 Running the command ``` docker compose up ``` in terminal in the project root directory will 
-execute the instructions in the ```docker-compose.yml``` file. 
-These instructions include creating a Postgres container using the environment variables in the .env file.
+execute the instructions in the ```docker-compose.yml``` file. These instructions include creating a Postgres container using the environment variables in the .env file.
 
-Once docker has built the Postgres container you can then interact with the database. 
-If you’re going to use a data visualisation tool like pgAdmin, Dbeaver, DataGrips, etc. 
-then the connection details will be the same as what’s in the .env file.
+Once Docker has built the Postgres container you can then interact with the database. If you’re going to use a data visualisation tool like pgAdmin, Dbeaver, DataGrips, etc. then the connection details will be the same as what’s in the ```.env``` file.
 
-To reiterate though, you don't need to use Docker and/or Postgres to use this wrapper. They have been provided
-as a way to organise the data.
+To reiterate though, you don't need to use Docker and/or Postgres to use this wrapper. They have been provided as a way to organise the data.
 
 ## Usage
-The main wrapper functionality can be found in source.py. When we create an instance of the 
-source class we need to pass in the R package we want to use. 
+The main wrapper functionality can be found in source.py. When we create an instance of the source class we need to pass in the R package we want to use. 
 In this case that might look like this: ``` fitzroy = Source('fitzRoy') ```
 
 Once we have an instance of the Source class we are free to call any of the fitzRoy fetch functions.
@@ -63,10 +56,10 @@ fitzRoy fetch function | fitzRoyPy Source method |
 ```fetch_results``` | ```get_results``` |
 ```fetch_ladder``` | ```get_ladder``` |
 ```fetch_player_details``` | ```get_player_details``` |
+
 When we call these functions we can specify the same keyword arguments as we would if we were using the fitzRoy package.
 
-Those are: ``` season, round, source, comp, etc.```. If we don't pass any of the keyword arguments to our get Source methods, 
-the fitzRoy API will return the default argument(s).
+Those are: ``` season, round, source, comp, etc.```. If we don't pass any of the keyword arguments to our get Source methods, the fitzRoy API will return the default argument(s).
 
 Essentially, what we're doing with each of these get methods is converting R DataFrames to Pandas DataFrames.
 
@@ -121,7 +114,6 @@ with code_loader.get_resources() as resources:
 6) Add validations.
 
 ## Contributing
-
 Any contributions are much appreciated! If you have a suggestion that would make this project better, 
 please feel free to fork the repo and create a pull request. 
 
