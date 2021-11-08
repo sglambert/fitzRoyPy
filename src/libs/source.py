@@ -9,8 +9,15 @@ class Source:
         self.source_package = self.get_source_package(source_package)
 
     def get_source_package(self, package_name):
-        self.source_package = packages.importr(package_name)
-        return self.source_package
+        if packages.isinstalled(package_name):
+            self.source_package = packages.importr(package_name)
+            return self.source_package
+        else:
+            utils = packages.importr('utils')
+            utils.chooseCRANmirror(ind=1)
+            utils.install_packages(package_name)
+            self.source_package = packages.importr(package_name)
+            return self.source_package
 
     def get_player_stats(self, **kwargs):
         args = []

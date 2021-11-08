@@ -9,16 +9,11 @@ analysis of data.
 ## Requirements
 
 * Python3
-* R
-* fitzRoy package
-* RStudio (Optional)
 * Docker (Optional)
 * Postgres (Optional)
 
 *The fitzRoy GitHub repository gives instructions on how to install the API. 
-However, if you're not familiar with installing R packages the simplest way to install the package 
-for use with Python is by firstly installing Rstudio and then installing fitzRoy through Rstudio. 
-There’s probably a better and much simpler way to install fitzRoy though!*
+However, we've inbuilt the package installation and import.*
 
 ## Getting Started
 
@@ -39,8 +34,12 @@ Once Docker has built the Postgres container you can then interact with the data
 To reiterate though, you don't need to use Docker and/or Postgres to use this wrapper. They have been provided as a way to organise the data.
 
 ## Usage
-The main wrapper functionality can be found in source.py. When we create an instance of the source class we need to pass in the R package we want to use. 
+The main wrapper functionality can be found in ```source.py```.
+
+When we create an instance of the ```Source``` class we need to pass in the R package we want to use. 
 In this case that might look like this: ``` fitzroy = Source('fitzRoy') ```
+
+When we create an instance of the ``Source`` class we automatically check if we need to install the R package, or just import it if it's already installed.
 
 Once we have an instance of the Source class we are free to call any of the fitzRoy fetch functions.
 
@@ -106,12 +105,17 @@ with code_loader.get_resources() as resources:
 ```
 
 ## Roadmap
-1) Create a simpler way to install the fitzRoy package through Python.
+~~1) Create a simpler way to install the fitzRoy package through Python.d to install the source package the  we will, however if it's already 
+we automatically import the ```fitzroy``` R package.
+If the package has not been installed rpy2 will install~~
 2) Add automated tests, particularly those around data collection from the fitzRoy API.
 3) Add data analysis functionality (e.g. Feature, Analysis, and Statistics classes).
 4) Actually do some data analysis!
 5) Add functionality to create database tables.
 6) Add validations.
+7) Do we need to re-install the ```fitzRoy``` R package everytime it's updated? 
+If so, we'll need to implement a further check to only install/re-install ```fitzRoy``` when it's been updated.
+Right now, we only check if it's already installed and not if it's the latest version.
 
 ## Contributing
 Any contributions are much appreciated! If you have a suggestion that would make this project better, 
