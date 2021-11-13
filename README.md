@@ -105,17 +105,16 @@ with code_loader.get_resources() as resources:
 ```
 
 ## Roadmap
-~~1) Create a simpler way to install the fitzRoy package through Python.d to install the source package the  we will, however if it's already 
-we automatically import the ```fitzroy``` R package.
-If the package has not been installed rpy2 will install~~
-2) Add automated tests, particularly those around data collection from the fitzRoy API.
-3) Add data analysis functionality (e.g. Feature, Analysis, and Statistics classes).
-4) Actually do some data analysis!
-5) Add functionality to create database tables.
-6) Add validations.
-7) Do we need to re-install the ```fitzRoy``` R package everytime it's updated? 
-If so, we'll need to implement a further check to only install/re-install ```fitzRoy``` when it's been updated.
-Right now, we only check if it's already installed and not if it's the latest version.
+
+1) Add data analysis functionality (e.g. Feature, Analysis, and Statistics classes).
+
+2) Actually do some data analysis!
+
+3) Add functionality to create database tables.
+
+4) Add validations.
+
+5) Add automated tests, particularly those around data collection from the fitzRoy API.
 
 ## Contributing
 Any contributions are much appreciated! If you have a suggestion that would make this project better, 
