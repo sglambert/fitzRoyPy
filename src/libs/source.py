@@ -5,10 +5,6 @@ import numpy as np
 
 class Source:
 
-    #TODO possibly remove hardcoding and put in config. We'll need to add config when creating an instance of
-    # the Source class.
-    REPOSITORY = 'https://api.github.com/repos/jimmyday12/fitzRoy/releases/latest'
-
     def __init__(self, source_package):
         self.package_name = source_package
         self.source_package = self.import_source_package(source_package)
@@ -35,8 +31,6 @@ class Source:
         self.source_package = packages.importr(package_name)
         return self.source_package
 
-
-
     def check_latest_release_version(self, package):
         """
         check if imported source package is latest available version.
@@ -44,7 +38,6 @@ class Source:
         utils = packages.importr('utils')
         installed_package = self.extract_version(utils.installed_packages())
         available_package = self.extract_version(utils.available_packages())
-
         is_latest_version = installed_package[package] == available_package[package]
         return is_latest_version
 
