@@ -1,7 +1,6 @@
 import rpy2.robjects.packages as packages
 import pandas as pd
 import numpy as np
-import requests
 
 
 class Source:
@@ -11,6 +10,7 @@ class Source:
     REPOSITORY = 'https://api.github.com/repos/jimmyday12/fitzRoy/releases/latest'
 
     def __init__(self, source_package):
+        self.package_name = source_package
         self.source_package = self.import_source_package(source_package)
 
     def import_source_package(self, package_name):
@@ -20,8 +20,7 @@ class Source:
         """
         if packages.isinstalled(package_name):
             self.source_package = packages.importr(package_name)
-            release_version = self.check_latest_release_version()
-            if self.source_package.__version__ == release_version:
+            if self.check_latest_release_version(package_name):
                 return self.source_package
             else:
                 self.install_package(package_name)
@@ -36,15 +35,24 @@ class Source:
         self.source_package = packages.importr(package_name)
         return self.source_package
 
-    def check_latest_release_version(self):
+
+
+    def check_latest_release_version(self, package):
         """
-        check if imported source package is latest release version on Github
-        if it's not the latest release we'll re-install the package
+        check if imported source package is latest available version.
         """
-        response = requests.get(self.REPOSITORY)
-        release_name = response.json()["name"]
-        latest_release_version = release_name.split(' ')[1]
-        return latest_release_version
+        utils = packages.importr('utils')
+        installed_package = self.extract_version(utils.installed_packages())
+        available_package = self.extract_version(utils.available_packages())
+
+        is_latest_version = installed_package[package] == available_package[package]
+        return is_latest_version
+
+    def extract_version(self, package_data):
+        """
+        Get package and version column.
+        """
+        return dict(zip(package_data.rx(True, 'Package'), package_data.rx(True, 'Version')))
 
     def get_player_stats(self, **kwargs):
         args = []
